@@ -1,5 +1,6 @@
 // select all elements-------------------------------------
 const start = document.getElementById("start");
+const startAir = document.getElementById("startAir");
 const quiz = document.getElementById("quiz");
 const question = document.getElementById("question");
 const qImg = document.getElementById("qImg");
@@ -11,10 +12,17 @@ const counter = document.getElementById("counter");
 const timeGauge = document.getElementById("timeGauge");
 const progress = document.getElementById("progress");
 const scoreDiv = document.getElementById("scoreContainer");
+const questionTime = 20;   // 10s per question
+const gaugeWidth = 150; //150px
+const gaugeUnit = gaugeWidth / questionTime;
+const qqq =0;
+let count = 0;
+let TIMER = 0;
+let score = 0;
+let runningQuestionAir = 0;
+let runningQuestion = 0;
 
-
-
-// create our questions-------------------------------------
+//############################## SAM Question Bank ###########################
 let questions = [
 
 
@@ -66,16 +74,32 @@ let questions = [
 
 
 ];
-const questionTime = 20;   // 10s per question
-const gaugeWidth = 150; //150px
+//############################## AIR Question Bank ###########################
+let questionsAir = [
+
+
+{question : "What is this?" , imgSrc: "pictures/SA/SA16.jpg", choiceA: "A:RS-SA-20", choiceB: "B:RS-SA-3", choiceC: "C: RS-SA-16", choiceD: "D: RS-SA-12", correct: "C"},
+{question : "What is this?" , imgSrc: "pictures/SA/SA21.jpg", choiceA: "A:RS-SA-25", choiceB: "B:RS-SA-5", choiceC: "C: RS-SA-15", choiceD: "D: RS-SA-21", correct: "D"},
+{question : "What is this?" , imgSrc: "pictures/SA/SA25.jpg", choiceA: "A:RS-SA-29", choiceB: "B:RS-SA-17", choiceC: "C: RS-SA-9", choiceD: "D: RS-SA-25", correct: "D"},
+{question : "What is this?" , imgSrc: "pictures/SA/SA16.jpg", choiceA: "A:RS-SA-20", choiceB: "B:RS-SA-3", choiceC: "C: RS-SA-16", choiceD: "D: RS-SA-12", correct: "C"},
+{question : "What is this?" , imgSrc: "pictures/SA/SA21.jpg", choiceA: "A:RS-SA-25", choiceB: "B:RS-SA-5", choiceC: "C: RS-SA-15", choiceD: "D: RS-SA-21", correct: "D"},
+{question : "What is this?" , imgSrc: "pictures/SA/SA25.jpg", choiceA: "A:RS-SA-29", choiceB: "B:RS-SA-17", choiceC: "C: RS-SA-9", choiceD: "D: RS-SA-25", correct: "D"},
+
+
+
+ 
+
+
+
+
+];
+
+//################################################################################
 const lastQuestion = questions.length - 1;
-const gaugeUnit = gaugeWidth / questionTime;
-let runningQuestion = 0;
-let count = 0;
-let TIMER = 0;
-let score = 0;
-start.addEventListener("click",startQuiz);
-// start the quiz
+const lastQuestionAir = questionsAir.length - 1;
+
+//######################################################################################
+start.addEventListener("click",startQuiz)
 function startQuiz(){
 	start.style.display = "none";
 	renderQuestion();	
@@ -83,8 +107,8 @@ function startQuiz(){
 	renderProgress();
 	renderCounter();
 	TIMER = setInterval(renderCounter, 1000); //1000ms = 1s
-	
 }
+
 // render a question
 function renderQuestion(){
 
@@ -161,6 +185,11 @@ function renderCounter(){
 }
 // score render
 function scoreRender(){
+
+//################################################   SAM ########################################################
+start.addEventListener("click",startQuiz);
+// ############## ENTER DATABASE BELOW    ################################
+
 	scoreDiv.style.display = "block";
 	const scorePerCent = Math.round( 100 * score / questions.length);
 	let img = ( scorePerCent >= 80) ? "img/5.png":
@@ -171,4 +200,139 @@ function scoreRender(){
 									 + scorePerCent + "%</p>";
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//#################################################  AIR  #######################################################
+startAir.addEventListener("click",startQuizAir);
+// ############## ENTER DATABASE BELOW    ################################
+
+// start the quiz
+function startQuizAir(){
+	startAir.style.display = "none";
+	renderQuestionAir();	
+	quiz.style.display = "block";
+	renderProgressAir();
+	renderCounterAir();
+	TIMER = setInterval(renderCounterAir, 1000); //1000ms = 1s
+	
+}
+// render a question
+function renderQuestionAir(){
+
+    let q = questionsAir[runningQuestionAir];   
+
+    question.innerHTML = "<p>"+ q.question +"</p>";
+
+    qImg.innerHTML = "<img src="+ q.imgSrc +">";
+
+    choiceA.innerHTML = q.choiceA;
+
+    choiceB.innerHTML = q.choiceB;
+
+    choiceC.innerHTML = q.choiceC;
+	
+	choiceD.innerHTML = q.choiceD;
+
+}
+// render progress--------------------------------------
+function renderProgressAir(){
+
+    for(let qIndex = 0; qIndex <= lastQuestionAir; qIndex++){
+
+        progress.innerHTML += "<div class='prog' id="+ qIndex +"></div>";
+
+    }
+
+}
+//check answer
+function checkAnswerAir(answer){
+	if(answer == questionsAir[runningQuestionAir].correct)
+	{ score++;
+	  answerIsCorrectAir(); 
+	} else  {
+		     answerIsWrongAir();
+			}
+		if(runningQuestionAir < lastQuestionAir) 
+		{
+			count = 0;
+			runningQuestionAir++;
+			renderQuestionAir();
+		} else  { 
+					clearInterval(TIMER);
+					scoreRenderAir();
+				}
+}		
+// answer is correct 
+function answerIsCorrectAir(){
+document.getElementById(runningQuestionAir).style.backgroundColor = "#0f0"; }
+// answer is wrong
+function answerIsWrongAir(){
+document.getElementById(runningQuestionAir).style.backgroundColor = "#f00";}
+// counter render--------------------------------------------------
+function renderCounterAir(){
+		if(count <= questionTime)
+		{
+			counter.innerHTML = count;
+			timeGauge.style.width = count * gaugeUnit + "px";
+			count++
+		} else 
+			{ count = 0;
+				answerIsWrongAir();
+				if( runningQuestionAir < lastQuestionAir)
+				{
+					runningQuestionAir++;
+					renderQuestionAir();
+				} else
+					{ clearInterval(TIMER);
+					scoreRenderAir();
+					}
+					
+					
+			}	
+}
+// score render
+function scoreRenderAir(){
+	scoreDiv.style.display = "block";
+	const scorePerCent = Math.round( 100 * score / questionsAir.length);
+	let img = ( scorePerCent >= 80) ? "img/5.png":
+			  ( scorePerCent >= 60) ? "img/4.png":
+			  ( scorePerCent >= 40) ? "img/3.png":
+			  ( scorePerCent >= 20) ? "img/2.png": "img/1.png";
+	scoreDiv.innerHTML = "<img src=" + img + "><p>"
+									 + scorePerCent + "%</p>";
+	
+}
+//##############################################################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
