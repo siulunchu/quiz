@@ -22,7 +22,7 @@ let questions = [
 
 
  
-{question : "What is this?What is this?What is this?What is this?What is this?What is this?What is this?What is this?What is this?What is this?What is this?What is this?" , imgSrc: "pictures/Air/CH/Z-9_Haitun.jpg", choiceA: "A:Z-19 Black Whirlwind", choiceB: "B:Z-9 Haitun", choiceC: "C: Ka-31 Helix", choiceD: "D: HESA-Kowsar", correct: "B"},
+{question : "What is this?" , imgSrc: "pictures/Air/CH/Z-9_Haitun.jpg", choiceA: "A:Z-19 Black Whirlwind", choiceB: "B:Z-9 Haitun", choiceC: "C: Ka-31 Helix", choiceD: "D: HESA-Kowsar", correct: "B"},
 {question : "What is this?" , imgSrc: "pictures/Air/CH/Z-8.jpg", choiceA: "A:Mi-28 Havoc", choiceB: "B:Z-8", choiceC: "C: F-4 Phantom", choiceD: "D: J-8 Finback", correct: "B"},
 {question : "What is this?" , imgSrc: "pictures/Air/RU/IL-22_Coot.jpg", choiceA: "A:Z-10 Thunderbolt", choiceB: "B:J-8 Finback", choiceC: "C: IL-22 Coot", choiceD: "D: IL-18 Coot", correct: "C"},
 {question : "What is this?" , imgSrc: "pictures/Air/Other/F-4_Phantom.jpg", choiceA: "A:F-4 Phantom", choiceB: "B:IL-76 Candid", choiceC: "C: Tu-154 careless", choiceD: "D: Su-24 Fencer", correct: "A"},
