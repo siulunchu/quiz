@@ -55,13 +55,13 @@ body{
     top : 0px;
 }
 #qImg img{
-    width : 600px;
-    height : 500px;
+    width : 650px;
+    height : 470px;
     border-top-left-radius: 5px;
 }
 
 #question{
-    width:400px;
+    width:340px;
     height : 125px;
     position: absolute;
     right:0;
@@ -74,20 +74,22 @@ body{
 }
 
 #choices{
-    width : 350px;
+    width : 320px;
     position: absolute;
     right : 0;
-    top : 350px;
+    top : 300px;
     padding : 15px
 }
 .choice{
-    display: inline-block;
-    width : 150px;
-    text-align: center;
+    display: block;
+    width : 320px;
+    text-align: left;
     border : 1px solid grey;
     border-radius: 5px;
     cursor: pointer;
     padding : 5px;
+	font-size: 1em;
+	
 }
 .choice:hover{
     border : 2px solid grey;
@@ -148,8 +150,8 @@ body{
 }
 #scoreContainer img{
     position: absolute;
+	height: 400px;
     width : 400px;
-    height: 400px;	
     top:20px;
     left:320px;
 }
